@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Cube with Skew</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .cube {
+            position: relative;
+            width: 200px;
+            height: 200px;
+        }
+
+        .face {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background-color: rgba(255, 0, 0, 0.7);
+            border: 1px solid #000;
+        }
+
+        .front {
+            background-color: rgba(255, 0, 0, 0.7); /* Red */
+            transform: skewX(0deg) skewY(0deg);
+            top: 0;
+            left: 0;
+        }
+
+        .back {
+            background-color: rgba(0, 255, 0, 0.7); /* Green */
+            transform: skewX(30deg) skewY(20deg);
+            top: 50px;
+            left: 100px;
+        }
+
+        .right {
+            background-color: rgba(0, 0, 255, 0.7); /* Blue */
+            transform: skewX(-30deg) skewY(0deg);
+            top: 100px;
+            left: 150px;
+        }
+
+        .left {
+            background-color: rgba(255, 255, 0, 0.7); /* Yellow */
+            transform: skewX(0deg) skewY(-20deg);
+            top: 100px;
+            left: -50px;
+        }
+
+        .top {
+            background-color: rgba(255, 165, 0, 0.7); /* Orange */
+            transform: skewX(30deg) skewY(-20deg);
+            top: -50px;
+            left: 50px;
+        }
+
+        .bottom {
+            background-color: rgba(128, 0, 128, 0.7); /* Purple */
+            transform: skewX(-30deg) skewY(20deg);
+            top: 150px;
+            left: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="cube">
+        <div class="face front"></div>
+        <div class="face back"></div>
+        <div class="face right"></div>
+        <div class="face left"></div>
+        <div class="face top"></div>
+        <div class="face bottom"></div>
+    </div>
+</body>
+</html>
