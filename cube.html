@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      perspective: 1000px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+   .cube {
+      position: relative;
+      width: 200px;
+      height: 200px;
+    }
+
+   .face {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      opacity: 0.8;
+    }
+
+    #front {
+      background-color: red;
+    }
+
+    #left {
+      background-color: yellow;
+      transform: skewY(-30deg) translateX(-173px) translateY(100px);
+    }
+
+    #top {
+      background-color: green;
+      transform: skewX(30deg) translateX(-100px) translateY(-100px);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="cube">
+    <div id="front" class="face"></div>
+    <div id="left" class="face"></div>
+    <div id="top" class="face"></div>
+  </div>
+</body>
+
+</html>
