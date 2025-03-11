@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pseudo 3D Cube with Skew</title>
     <style>
         body {
-            perspective: 1000px;
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
+            background-color: #f0f0f0;
         }
 
         .cube {
@@ -24,31 +24,68 @@
             position: absolute;
             width: 200px;
             height: 200px;
-            opacity: 0.8;
+            background-color: rgba(255, 0, 0, 0.7);
+            border: 1px solid #000;
+            box-sizing: border-box;
         }
 
-        #front {
-            background-color: red;
+        /* Front face */
+        .front {
+            background-color: rgba(255, 0, 0, 0.7); /* Red */
+            transform: skewX(0deg) skewY(0deg);
+            top: 0;
+            left: 0;
         }
 
-        #left {
-            background-color: yellow;
-            transform: skewY(-30deg) translateX(-173px);
+        /* Back face */
+        .back {
+            background-color: rgba(0, 255, 0, 0.7); /* Green */
+            transform: skewX(30deg) skewY(0deg);
+            top: 0;
+            left: 100px;
         }
 
-        #top {
-            background-color: green;
-            transform: skewX(30deg) translateY(-173px);
+        /* Right face */
+        .right {
+            background-color: rgba(0, 0, 255, 0.7); /* Blue */
+            transform: skewX(0deg) skewY(20deg);
+            top: 100px;
+            left: 150px;
+        }
+
+        /* Left face */
+        .left {
+            background-color: rgba(255, 255, 0, 0.7); /* Yellow */
+            transform: skewX(0deg) skewY(-20deg);
+            top: 100px;
+            left: -50px;
+        }
+
+        /* Top face */
+        .top {
+            background-color: rgba(255, 165, 0, 0.7); /* Orange */
+            transform: skewX(30deg) skewY(0deg);
+            top: -50px;
+            left: 50px;
+        }
+
+        /* Bottom face */
+        .bottom {
+            background-color: rgba(128, 0, 128, 0.7); /* Purple */
+            transform: skewX(-30deg) skewY(0deg);
+            top: 150px;
+            left: 50px;
         }
     </style>
 </head>
-
 <body>
     <div class="cube">
-        <div id="front" class="face"></div>
-        <div id="left" class="face"></div>
-        <div id="top" class="face"></div>
+        <div class="face front"></div>
+        <div class="face back"></div>
+        <div class="face right"></div>
+        <div class="face left"></div>
+        <div class="face top"></div>
+        <div class="face bottom"></div>
     </div>
 </body>
-
 </html>
