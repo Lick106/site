@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            perspective: 1000px; /* 设置透视效果，增强 3D 感 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+       .cube {
+            position: relative;
+            width: 200px;
+            height: 200px;
+        }
+
+       .face {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            opacity: 0.8; /* 设置透明度，方便观察 3D 效果 */
+        }
+
+        #a {
+            background-color: red;
+            transform: translateZ(0); /* 前面 */
+        }
+
+        #b {
+            background-color: yellow;
+            transform: skewY(-30deg) translateX(-173px) translateY(100px); /* 左面 */
+        }
+
+        #c {
+            background-color: green;
+            transform: skewX(30deg) translateX(-100px) translateY(-100px); /* 顶面 */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cube">
+        <div id="a" class="face"></div>
+        <div id="b" class="face"></div>
+        <div id="c" class="face"></div>
+    </div>
+</body>
+
+</html>
