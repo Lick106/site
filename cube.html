@@ -3,89 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pseudo 3D Cube with Skew</title>
+    <title>3D Cube with Different Colors</title>
     <style>
         body {
-            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            margin: 0;
             background-color: #f0f0f0;
+            perspective: 1000px; /* 添加透视效果 */
         }
 
         .cube {
             position: relative;
             width: 200px;
             height: 200px;
+            transform-style: preserve-3d;
+            transform: rotateX(-20deg) rotateY(-30deg); /* 调整视角 */
+            animation: rotate 8s infinite linear; /* 添加旋转动画 */
         }
 
         .face {
             position: absolute;
             width: 200px;
             height: 200px;
-            background-color: rgba(255, 0, 0, 0.7);
-            border: 1px solid #000;
-            box-sizing: border-box;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 2px solid #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
         }
 
-        /* Front face */
-        .front {
-            background-color: rgba(255, 0, 0, 0.7); /* Red */
-            transform: skewX(0deg) skewY(0deg);
-            top: 0;
-            left: 0;
-        }
+        .front  { background-color: rgba(255, 0, 0, 0.8); transform: translateZ(100px); }
+        .back   { background-color: rgba(0, 255, 0, 0.8); transform: rotateY(180deg) translateZ(100px); }
+        .right  { background-color: rgba(0, 0, 255, 0.8); transform: rotateY(90deg) translateZ(100px); }
+        .left   { background-color: rgba(255, 255, 0, 0.8); transform: rotateY(-90deg) translateZ(100px); }
+        .top    { background-color: rgba(255, 0, 255, 0.8); transform: rotateX(90deg) translateZ(100px); }
+        .bottom { background-color: rgba(0, 255, 255, 0.8); transform: rotateX(-90deg) translateZ(100px); }
 
-        /* Back face */
-        .back {
-            background-color: rgba(0, 255, 0, 0.7); /* Green */
-            transform: skewX(30deg) skewY(0deg);
-            top: 0;
-            left: 100px;
-        }
-
-        /* Right face */
-        .right {
-            background-color: rgba(0, 0, 255, 0.7); /* Blue */
-            transform: skewX(0deg) skewY(20deg);
-            top: 100px;
-            left: 150px;
-        }
-
-        /* Left face */
-        .left {
-            background-color: rgba(255, 255, 0, 0.7); /* Yellow */
-            transform: skewX(0deg) skewY(-20deg);
-            top: 100px;
-            left: -50px;
-        }
-
-        /* Top face */
-        .top {
-            background-color: rgba(255, 165, 0, 0.7); /* Orange */
-            transform: skewX(30deg) skewY(0deg);
-            top: -50px;
-            left: 50px;
-        }
-
-        /* Bottom face */
-        .bottom {
-            background-color: rgba(128, 0, 128, 0.7); /* Purple */
-            transform: skewX(-30deg) skewY(0deg);
-            top: 150px;
-            left: 50px;
+        @keyframes rotate {
+            0%   { transform: rotateX(-20deg) rotateY(-30deg); }
+            100% { transform: rotateX(-20deg) rotateY(330deg); }
         }
     </style>
 </head>
 <body>
     <div class="cube">
-        <div class="face front"></div>
-        <div class="face back"></div>
-        <div class="face right"></div>
-        <div class="face left"></div>
-        <div class="face top"></div>
-        <div class="face bottom"></div>
+        <div class="face front">Front</div>
+        <div class="face back">Back</div>
+        <div class="face right">Right</div>
+        <div class="face left">Left</div>
+        <div class="face top">Top</div>
+        <div class="face bottom">Bottom</div>
     </div>
 </body>
 </html>
