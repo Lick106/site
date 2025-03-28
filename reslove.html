@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF - 8">
+  <meta name="viewport" content="width=device-width, initial - scale=1.0">
+  <title>Quadratic Equation Solver</title>
+</head>
+
+<body>
+  <form>
+    <input type="number" id="a" placeholder="a" required>x<sup>2</sup> +
+    <input type="number" id="b" placeholder="b" required>x +
+    <input type="number" id="c" placeholder="c" required> = 0
+    <button type="button" onclick="solveEquation()">Solve</button>
+  </form>
+  <div id="solution - area">Solution area</div>
+  <script>
+    function solveEquation() {
+      const a = parseFloat(document.getElementById('a').value);
+      const b = parseFloat(document.getElementById('b').value);
+      const c = parseFloat(document.getElementById('c').value);
+      const discriminant = b * b - 4 * a * c;
+      const solutionArea = document.getElementById('solution - area');
+
+      if (discriminant < 0) {
+        const realPart = -b / (2 * a);
+        const imaginaryPart = Math.sqrt(-discriminant) / (2 * a);
+        const x1 = `x1=${realPart}+${imaginaryPart}i`;
+        const x2 = `x2=${realPart}-${imaginaryPart}i`;
+        solutionArea.innerHTML = `${x1},${x2}`;
+      } else if (discriminant === 0) {
+        const x = -b / (2 * a);
+        solutionArea.innerHTML = `x=${x}`;
+      } else {
+        const x1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+        const x2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+        solutionArea.innerHTML = `x1=${x1}, x2=${x2}`;
+      }
+    }
+  </script>
+</body>
+
+</html>
