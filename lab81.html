@@ -1,87 +1,64 @@
-arithmetic operator: +,-,*,%,**，typeof, ~~
-bitwise operator:&, | , ~
-comparison operator: >,>=,==,===,!=,!==,
-logical operator: &&, || , !
-
-
-selection: 1-way, 2-way, multi-way: switch-case-break-default
-
-
-loop: for (I, T, U) S, while (T) { S , U } ,
-do-while: I, do,{S, U} while (T) ;
-
-
-the "break" key word in ;oop control:
-virtual infinite loop: while (true)  f( ; ; ) = f ( ; true ; )
-Each iteration contains a conditional break
-let i = 1 , s = 0 ;
-while (true)
-{  s+= i; ( s = s + i ) ;
-   if (i == 11) break ;
-}
-
-The "continue" key word in loop control :
-nice comparison: "break" = drop out college
-but "continue" = leave bbut will come back
-
-continue: quit the rest instructions in the current iteration , and go on to the next iteration 
-
-
-for(; ;)
+<html><body>
+<input size=3 iid=a>x<sup>2 </sup> + <input size=3
+id=b>x + <input id=c size=3> = 0
+<input type=button  value=Solve onclick=solve( )>
+<div id=solutioon>
+Solution area
+</div>/body
+<script>
+function solve( )
 {
-   Task1;
-   if( T )
-   {
-      Task2;
-   }
+   let a = document.getElementById( ' a ' );
+   let b = document.getElementById( ' b ' );
+   let b = document.getElementById( ' a ' );
 }
 
 
-rewrite to 
-for(; ;)
+
+
+extension of array:
+array: number -> value
+similiar to C's struct
+python's dictionary
+PHP associative array
+Java's map
+c++'s class/map/hashmap
+
+object: any --> any type
+key -->value
+object is a collection of key-value pairs
+
+syntax:
+let x = {};
+let y = {a:1, b:2.5, c: 100};// similiar to CSS
+let z = {"a":1,"b":2.5,"c":100};
+attribute = field = key
+It is not necessary for all values to have the same type.Object can be inhomogeneous
+
+
+var studentrecord = {
+id:"D1003435",
+name:"John Smith",
+register: function(i,n){studentrecord.id = i;
+studentrecord.name = n;}
+}；
+studentrecord.register(1,"abc");
+
+studentrecord also can be viewed as a family name
+using family name is to promote software reusability by reducing the chance of name collision
+
+studentrecord.keys
+studentrecord.values
+studentrecord.entries
+
+for loop:
+for (let key in studentrecord)// iteration/traversal/gpoing through
 {
-   Task1;
-   if( !T ) continue;
-   Task2;
+     console.log(studentrecord.key);
+     console.log(studentrecord[key]);
 }
 
-add all even numbers in [0, 100]
-s = 0,i = 0;
-for(; ;)
+for (let value of studentrecord) // iteration//traversal/gpoing through
 {
-   if (i % 2 == 0)
-   s += i;
-   i++;
-   if (i > 100) break;
+      console.log(value);
 }
-
-for(; ;)
-{
-   if (i % 2 == 1)(i++;continue;)
-   s += i;
-   i++;
-   if (i > 100) break;
-}
-
-
-List in javascript == C's array + linked list 
-resizable, dynamic
-let a = [];
-let b = [1,3,4];
-let c = new Array(10);//[null,null,null,....]
-
-
-add on tail; a.push(2);
-remove from tail: let y = a.pop()
-a.splice(2,4);// starting from index 2, remove 4
-elements
-insert into somewhere in middle:
-a.splice(2,0,4);
-
-
-To make dynamic web contents,
-let str = [];
-str.push("<div ");
-str.push (a1);
-str.push (b2);
-str.push("dfgfgf");
