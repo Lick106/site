@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             margin: 0;
@@ -31,19 +33,40 @@
 <body>
     <div id="balloons"></div>
     <script>
-        const numBalloons = 1000000;
+        const numVisibleBalloons = 500; 
         const colors = ['#ff6b6b', '#f8b195', '#f67280', '#c06c84', '#6c5b7b', '#355c7d'];
         const balloonsContainer = document.getElementById('balloons');
 
-        for (let i = 0; i < numBalloons; i++) {
+        function createBalloon() {
             const balloon = document.createElement('div');
             balloon.classList.add('balloon');
             balloon.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
             balloon.style.left = Math.random() * 100 + 'vw';
             balloon.style.animationDuration = (Math.random() * 5 + 5) + 's';
             balloon.style.animationDelay = Math.random() * 10 + 's';
+            return balloon;
+        }
+
+        for (let i = 0; i < numVisibleBalloons; i++) {
+            const balloon = createBalloon();
             balloonsContainer.appendChild(balloon);
         }
+
+        function resetBalloon(balloon) {
+            balloon.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            balloon.style.left = Math.random() * 100 + 'vw';
+            balloon.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            balloon.style.animationDelay = 0;
+            balloon.offsetHeight; 
+            balloon.style.animationDelay = Math.random() * 10 + 's';
+        }
+
+        balloonsContainer.addEventListener('animationiteration', function (e) {
+            if (e.target.classList.contains('balloon')) {
+                resetBalloon(e.target);
+            }
+        });
+
     </script>
 </body>
 
