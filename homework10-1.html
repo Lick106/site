@@ -1,56 +1,39 @@
-import re
-from datetime import datetime, time
+import datetime
+
 
 def righttime(d, timeslots):
-    # 预处理：移除所有空格并转换为大写
-    cleaned = timeslots.replace(" ", "").upper()
-    
-    # 分割多个时隙（逗号分隔）
-    slots = cleaned.split(',')
-    
-    # 检查每个时隙
-    for slot in slots:
-        if not slot:
-            continue
-            
-        # 使用正则表达式解析时隙
-        match = re.fullmatch(r'([A-Z]+)(\d{1,2}):(\d{1,2})-(\d{1,2}):(\d{1,2})', slot)
-        if not match:
-            continue  # 跳过无效格式
-            
-        # 提取组成部分
-        days_str, start_hour, start_min, end_hour, end_min = match.groups()
-        
-        # 转换为整数
-        try:
-            start_h = int(start_hour)
-            start_m = int(start_min)
-            end_h = int(end_hour)
-            end_m = int(end_min)
-        except ValueError:
-            continue  # 跳过无效数字
-            
-        # 验证时间范围
-        if not (0 <= start_h <= 23 and 0 <= start_m <= 59 and
-                0 <= end_h <= 23 and 0 <= end_m <= 59):
-            continue
-            
-        # 检查星期几
-        weekday = d.weekday()  # 0=Monday, 6=Sunday
-        day_mapping = {
-            'M': 0, 'T': 1, 'W': 2, 'R': 3, 'F': 4, 'S': 5, 'U': 6
-        }
-        
-        # 检查是否匹配任何指定的星期几
-        for day_char in days_str:
-            if day_char in day_mapping and day_mapping[day_char] == weekday:
-                # 创建时间对象进行比较
-                start_time = time(start_h, start_m)
-                end_time = time(end_h, end_m)
-                current_time = d.time()
-                
-                # 检查当前时间是否在范围内
-                if start_time <= current_time <= end_time:
-                    return True
-                
+    # 定义一周中各天的缩写和对应的数字
+    day_mapping = {
+        'M': 0, 'T': 1, 'W': 2, 'R': 3, 'F': 4, 'S': 5, 'U': 6
+    }
+    # 获取输入日期时间对象的星期几和时间
+    day_of_week = d.weekday()
+    current_time = d.time()
+    # 分割不同的时隙
+    timeslots = timeslots.replace(' ', '').split(',')
+    for slot in timeslots:
+        # 提取星期几的缩写
+        days_str = ''
+        for char in slot:
+            if char.isalpha():
+                days_str += char
+            else:
+                break
+        # 处理星期几的缩写，将其转换为对应的数字列表
+        days = []
+        for i in range(0, len(days_str), 1):
+            if i + 1 < len(days_str) and days_str[i + 1].isalpha():
+                days.extend([day_mapping[days_str[i]], day_mapping[days_str[i + 1]]])
+                i += 1
+            else:
+                days.append(day_mapping[days_str[i]])
+        # 提取开始时间和结束时间
+        time_part = slot[len(days_str):].split('-')
+        start_time_str = time_part[0].zfill(5)
+        end_time_str = time_part[1].zfill(5)
+        start_time = datetime.datetime.strptime(start_time_str, '%H:%M').time()
+        end_time = datetime.datetime.strptime(end_time_str, '%H:%M').time()
+        # 检查日期和时间是否在时隙内
+        if day_of_week in days and start_time <= current_time <= end_time:
+            return True
     return False
