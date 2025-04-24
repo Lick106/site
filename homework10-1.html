@@ -1,0 +1,26 @@
+def righttime(d, timeslots):
+    weekday_mapping = {
+        'M': 0,
+        'T': 1,
+        'W': 2,
+        'R': 3,
+        'F': 4,
+        'S': 5,
+        'U': 6
+    }
+    timeslots = timeslots.replace(" ", "")
+    slot_list = timeslots.split(',')
+    for slot in slot_list:
+        for i in range(len(slot)):
+            if slot[i].isdigit():
+                days = slot[:i]
+                time_range = slot[i:]
+                break
+        start_time_str, end_time_str = time_range.split('-')
+        start_time = datetime.datetime.strptime(start_time_str, '%H:%M').time()
+        end_time = datetime.datetime.strptime(end_time_str, '%H:%M').time()
+        for day in days:
+            if weekday_mapping[day] == d.weekday():
+                if start_time <= d.time() <= end_time:
+                    return True
+    return False
