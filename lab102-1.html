@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Balloon Simulation</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            background: linear-gradient(to bottom, #87CEEB, #E0F7FA);
+            position: relative;
+        }
+        .balloon {
+            position: absolute;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+        }
+        .balloon:before {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            width: 2px;
+            height: 30px;
+            background: rgba(0,0,0,0.3);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .burst {
+            animation: burst 0.5s forwards;
+        }
+        @keyframes burst {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(3); opacity: 0; }
+        }
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <button id="launch">Launch Balloon</button>
+    </div>
+
+    <script>
+        const colors = ['red', 'orange', 'yellow', 'green', 'black', 'blue', 'purple'];
+        const burstAltitude = window.innerHeight * 0.7; // Balloons burst at 70% of screen height
+        let balloonCounter = 0;
+        let activeBalloons = [];
+
+        document.getElementById('launch').addEventListener('click', launchBalloon);
+
+        function launchBalloon() {
+            const balloon = document.createElement('div');
+            balloon.className = 'balloon';
+            balloon.id = `balloon-${balloonCounter++}`;
+            
+            // Random properties
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            const size = 40 + Math.random() * 30;
+            const startLeft = Math.random() * (window.innerWidth - size);
+            
+            // Initial styling
+            balloon.style.width = `${size}px`;
+            balloon.style.height = `${size}px`;
+            balloon.style.left = `${startLeft}px`;
+            balloon.style.bottom = '0px';
+            balloon.style.backgroundColor = color;
+            balloon.textContent = balloonCounter;
+            
+            document.body.appendChild(balloon);
+            activeBalloons.push(balloon);
+            
+            // Animation
+            animateBalloon(balloon, size);
+        }
+
+        function animateBalloon(balloon, initialSize) {
+            let position = 0;
+            let currentSize = initialSize;
+            let speed = 1 + Math.random() * 3;
+            let burstTimeout = null;
+            
+            const animation = setInterval(() => {
+                position += speed;
+                currentSize += 0.1; // Balloon grows as it rises
+                
+                balloon.style.bottom = `${position}px`;
+                balloon.style.width = `${currentSize}px`;
+                balloon.style.height = `${currentSize}px`;
+                
+                // Check if balloon reached burst altitude
+                if (position >= burstAltitude && !burstTimeout) {
+                    // Random delay before bursting (1000-3000ms)
+                    const burstDelay = 1000 + Math.random() * 2000;
+                    burstTimeout = setTimeout(() => {
+                        burstBalloon(balloon, animation);
+                    }, burstDelay);
+                }
+                
+                // Remove if out of view
+                if (position > window.innerHeight) {
+                    clearInterval(animation);
+                    removeBalloon(balloon);
+                }
+            }, 16);
+        }
+
+        function burstBalloon(balloon, animation) {
+            clearInterval(animation);
+            balloon.classList.add('burst');
+            
+            // Remove after animation completes
+            setTimeout(() => {
+                removeBalloon(balloon);
+            }, 500);
+        }
+
+        function removeBalloon(balloon) {
+            balloon.remove();
+            activeBalloons = activeBalloons.filter(b => b !== balloon);
+        }
+
+        // Launch 3 balloons automatically on load
+        window.addEventListener('load', () => {
+            launchBalloon();
+            launchBalloon();
+            launchBalloon();
+        });
+    </script>
+</body>
+</html>
